@@ -1,0 +1,14 @@
+{
+    "name": "diggphp/request",
+    "description": "php request",
+    "type": "library",
+    "license": "GPL-3.0",
+    "autoload": {
+        "psr-4": {
+            "DiggPHP\\Request\\": "src/"
+        }
+    },
+    "require": {
+        "psr/http-message": "^1.0"
+    }
+}
