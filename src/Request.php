@@ -41,6 +41,10 @@ class Request
                 return $this->isSetValue($this->server_request->getParsedBody(), $fields);
                 break;
 
+            case 'request':
+                return $this->isSetValue($this->server_request->getQueryParams(), $fields) || $this->isSetValue($this->server_request->getParsedBody(), $fields);
+                break;
+
             case 'cookie':
                 return $this->isSetValue($this->server_request->getCookieParams(), $fields);
                 break;
@@ -76,6 +80,15 @@ class Request
     public function post(string $field = '', $default = null)
     {
         return $this->getValue($this->server_request->getParsedBody(), $this->fieldFilter($field), $default);
+    }
+
+    public function request(string $field = '', $default = null)
+    {
+        if ($this->has('get.' . $field)) {
+            return $this->getValue($this->server_request->getQueryParams(), $this->fieldFilter($field), $default);
+        } else {
+            return $this->getValue($this->server_request->getParsedBody(), $this->fieldFilter($field), $default);
+        }
     }
 
     public function cookie(string $field = '', $default = null)
